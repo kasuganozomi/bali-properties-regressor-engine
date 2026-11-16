@@ -1,0 +1,20 @@
+{
+  "body_font": "Aileron",
+  "font_source": "https://dotcolon.net/fonts/aileron/",
+  "font_files": "tools/presentasi/fonts/Aileron-Regular.ttf and Aileron-Bold.ttf",
+  "font_embedding": "TrueType outlines converted from official CFF OpenType sources with at most 0.5 font unit curve error; names and source metrics preserved",
+  "heading_font": "League Spartan",
+  "image_tool": "Built-in image_gen",
+  "assets": [
+    {
+      "file": "bali-wallpaper.png",
+      "purpose": "Decorative fictional Bali landscape; not a map or observed research data",
+      "prompt": "Use case: illustration-story. Asset type: elegant very subtle wallpaper for a white academic slide presentation about Bali accommodation pricing. Create a refined monochrome atmospheric panorama of Bali: distant volcanic mountain silhouette, soft tropical coastal hills, a small recognizable Balinese split-gate temple silhouette on the far right, layered mist, tranquil coastline. Wide 16:9 composition. The TOP TWO THIRDS must be nearly pure white with generous blank negative space; the landscape occupies only the LOWER THIRD and the far-right edge, gently dissolving into the white background. Color palette only cool pearl white and desaturated pale slate blue-grey, very low contrast, lighter than normal artwork, soft tonal transitions, subtle silver fog. Beautiful precise minimal editorial travel art, sophisticated and restrained, comfortable and quiet. No vibrant colors, no green, no blue sky, no text, no labels, no map outlines, no logos, no people, no excessive ornamental patterns. Keep visual details at the bottom and right so dark presentation text can be read clearly elsewhere."
+    },
+    {
+      "file": "villa-ilustrasi-soft.png",
+      "purpose": "Illustrative villa for the usage scenario",
+      "prompt": "Edit this architectural photograph for a refined academic presentation. Preserve the exact same villa architecture, pool, framing, plants, furniture, camera angle and all objects. Change lighting and color grading only: replace harsh bright midday sunshine with soft diffused overcast late-afternoon light, lower luminous highlights on white walls and paving, gently deepen midtones, desaturate yellow-green vegetation and cyan pool water, use restrained slate-blue shadows and natural neutral stone. Calm, comfortable, elegant editorial property photography, realistic and clearly visible architecture, subtle cinematic mood without making the photo dark or gloomy. No orange sunset, no added lights, no people, no text, no new objects, no vignette, no borders."
+    }
+  ]
+}

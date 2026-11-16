@@ -1,0 +1,47 @@
+%%{init: {'theme': 'base', 'themeVariables': {'lineColor': '#0F172A', 'edgeLabelBackground': '#FFFFFF', 'fontFamily': 'Segoe UI, Arial, sans-serif', 'fontSize': '13px'}, 'flowchart': {'wrappingWidth': 380}}}%%
+flowchart TB
+    classDef navy fill:#1E3A8A,stroke:#0F172A,color:#FFFFFF,stroke-width:2px,font-weight:bold;
+    classDef teal fill:#0F766E,stroke:#064E3B,color:#FFFFFF,stroke-width:2px,font-weight:bold;
+    classDef amber fill:#B45309,stroke:#78350F,color:#FFFFFF,stroke-width:2px,font-weight:bold;
+    classDef indigo fill:#3730A3,stroke:#1E1B4B,color:#FFFFFF,stroke-width:2px,font-weight:bold;
+    classDef emerald fill:#047857,stroke:#064E3B,color:#FFFFFF,stroke-width:2px,font-weight:bold;
+    classDef charcoal fill:#0F172A,stroke:#334155,color:#FFFFFF,stroke-width:2.5px,font-weight:bold;
+
+    subgraph S1["FASE 1 — DATA AWAL & PENGAYAAN WEB SCRAPING"]
+        direction LR
+        A1["<b>Dataset Awal Kaggle</b><br/>AirBnB_Bali_All.csv (pandaa12)<br/>1.235 baris | 6 kolom dasar"]:::navy
+        A2["<b>Web Scraping Detail &amp; 1-Malam</b><br/>1.036 JSON per room_id (jeda 4–7 dtk)<br/>28 unit cek 1-malam H+5–H+6 (3 koridor)"]:::navy
+        A3["<b>Penggabungan Data (30 Kolom)</b><br/>1.212/1.235 cocok JSON (6 + 24)<br/>6 irisan 1-malam + sisanya tarif / 5"]:::navy
+        A1 --> A2 --> A3
+    end
+
+    subgraph S2["FASE 2 — PEMBERSIHAN & PENYELARASAN DATA"]
+        direction LR
+        B1["<b>Deduplikasi &amp; Validasi GPS</b><br/>Buang 177 duplikat → 1.058 unik<br/>Buang 22 tanpa GPS → 1.036 unit"]:::teal
+        B2["<b>Koreksi Wilayah &amp; Kapasitas</b><br/>402 salah kabupaten → kamus resmi<br/>73 kapasitas kamar diselaraskan"]:::teal
+        B3["<b>Pasar Reguler &amp; Rating NaN</b><br/>Buang 58 ekstrem → 978 unit (54 kec.)<br/>267 baru: review 0, rating NaN alami"]:::teal
+        B1 --> B2 --> B3
+    end
+
+    subgraph S3["FASE 3 — REKAYASA FITUR & PARTISI DATA"]
+        direction LR
+        C1["<b>Konstruksi 38 Fitur Prediktor</b><br/>10 struktur &amp; rasio | 11 lokasi &amp; jarak<br/>8 fasilitas | 9 reputasi &amp; teks listing"]:::amber
+        C2["<b>Transformasi Target Logaritmik</b><br/>log_price = ln(1 + price_idr)<br/>Skewness turun 1,638 → -0,059"]:::amber
+        C3["<b>Stratified Holdout Split 80:20</b><br/>782 Data Latih | 196 Data Uji<br/>Proporsional 9 kabupaten/kota"]:::amber
+        C1 --> C2 --> C3
+    end
+
+    subgraph S4["FASE 4 — PEMODELAN, EVALUASI & IMPLEMENTASI"]
+        direction LR
+        D1["<b>Pipeline Pra-Model Terisolasi</b><br/>RF &amp; XGB: Median + OHE (101 fitur)<br/>CatBoost: Kategori Asli (38 fitur)"]:::indigo
+        D2["<b>5-Fold CV &amp; Uji 196 Holdout</b><br/>R² (log) | MAE, RMSE, MedAE,<br/>MdAPE (IDR) &amp; 4 Segmen Tarif"]:::emerald
+        D3(["<b>Bali Smart Pricing Engine</b><br/>Model Terbaik + SHAP TreeExplainer<br/>pada Antarmuka Web Streamlit"]):::charcoal
+        D1 --> D2 --> D3
+    end
+
+    S1 ==> S2 ==> S3 ==> S4
+
+    style S1 fill:#FFFFFF,stroke:#1E3A8A,stroke-width:3px,color:#1E3A8A,font-weight:bold
+    style S2 fill:#FFFFFF,stroke:#0F766E,stroke-width:3px,color:#0F766E,font-weight:bold
+    style S3 fill:#FFFFFF,stroke:#B45309,stroke-width:3px,color:#B45309,font-weight:bold
+    style S4 fill:#FFFFFF,stroke:#3730A3,stroke-width:3px,color:#3730A3,font-weight:bold

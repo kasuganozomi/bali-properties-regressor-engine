@@ -1,0 +1,34 @@
+%%{init: {'theme': 'base', 'themeVariables': {'lineColor': '#0F172A', 'edgeLabelBackground': '#FFFFFF', 'fontFamily': 'Segoe UI, Arial, sans-serif', 'fontSize': '15px'}, 'flowchart': {'rankSpacing': 42, 'nodeSpacing': 36, 'wrappingWidth': 420}}}%%
+flowchart TB
+    classDef charcoal fill:#0F172A,stroke:#020617,color:#FFFFFF,stroke-width:2px,font-weight:bold;
+    classDef royal fill:#1D4ED8,stroke:#1E3A8A,color:#FFFFFF,stroke-width:2px,font-weight:bold;
+    classDef crimson fill:#B91C1C,stroke:#7F1D1D,color:#FFFFFF,stroke-width:2px,font-weight:bold;
+    classDef teal fill:#0F766E,stroke:#064E3B,color:#FFFFFF,stroke-width:2px,font-weight:bold;
+    classDef indigo fill:#4338CA,stroke:#312E81,color:#FFFFFF,stroke-width:2px,font-weight:bold;
+    classDef emerald fill:#047857,stroke:#064E3B,color:#FFFFFF,stroke-width:2px,font-weight:bold;
+    classDef amber fill:#B45309,stroke:#78350F,color:#FFFFFF,stroke-width:2px,font-weight:bold;
+
+    N0["<b>Dataset Bersih (978 Unit | 38 Fitur)</b><br/>267 unit baru berstatus rating NaN alami<br/>Stratified Split 80:20 per Kabupaten (seed = 42)"]:::charcoal
+
+    subgraph S_TR["ZONA PELATIHAN & VALIDASI SILANG (80% = 782 UNIT)"]
+        direction TB
+        CV["<b>5-Fold Out-of-Fold Cross-Validation</b><br/>625–626 latih | 156–157 validasi per lipatan"]:::royal
+        P_RF["<b>Random Forest &amp; XGBoost</b><br/>SimpleImputer (median) + OHE<br/>101 fitur masukan (per lipatan)"]:::teal
+        P_CB["<b>CatBoost Regressor</b><br/>Ordered Target Stats (3 kategori)<br/>&amp; cabang NaN native (38 fitur)"]:::indigo
+        FIT["<b>Pelatihan Ulang pada 782 Unit Latih</b><br/>Aturan pra-proses terkunci di latih"]:::emerald
+        CV --> P_RF --> FIT
+        CV --> P_CB --> FIT
+    end
+
+    TE["<b>Data Uji Holdout (196 Unit | 20%)</b><br/>Terkunci di luar validasi silang,<br/>imputasi median, dan one-hot encoding"]:::crimson
+
+    EVAL["<b>Uji Independen 196 Unit &amp; Inversi expm1()</b><br/>Konversi prediksi log_price kembali ke Rupiah (IDR)"]:::amber
+    OUT(["<b>Evaluasi Multi-Metrik &amp; SHAP TreeExplainer</b><br/>R² (log) | MAE, RMSE, MedAE, MdAPE (IDR) | 4 Segmen Tarif"]):::charcoal
+
+    N0 -->|"80% Latih (782)"| S_TR
+    N0 -->|"20% Uji Terisolasi"| TE
+    S_TR --> EVAL
+    TE -->|"Tanpa Parameter Latih"| EVAL
+    EVAL --> OUT
+
+    style S_TR fill:#F8FAFC,stroke:#1D4ED8,stroke-width:2.5px,color:#1D4ED8,font-weight:bold

@@ -1,0 +1,21 @@
+{
+  "slides": 13,
+  "pdf_pages": 13,
+  "issues": [],
+  "pdf_fonts": [
+    "BCDEEE+Aileron-Bold",
+    "BCDFEE+LeagueSpartan-Bold",
+    "BCDGEE+Aileron-Bold",
+    "BCDHEE+Aileron-Regular",
+    "BCDIEE+Aileron-Regular"
+  ],
+  "embedded_font_files": [
+    "ppt/fonts/font3.fntdata",
+    "ppt/fonts/font2.fntdata",
+    "ppt/fonts/font1.fntdata"
+  ],
+  "source_script": "naskah.md",
+  "main_slides": 12,
+  "reference_appendix_slides": 1,
+  "image": "AI-generated illustrative villa and decorative Bali landscape; no observed research results"
+}
