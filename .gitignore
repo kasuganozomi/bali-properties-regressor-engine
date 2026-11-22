@@ -30,5 +30,6 @@ docs/jurnal/*.png
 *.tmp
 scratch/
 
-# Private document generation & automation scripts
+# Private document generation, automation scripts & personal presenter cue-deck
 tools/
+docs/presentasi/PRESENTASI_NARASI.*

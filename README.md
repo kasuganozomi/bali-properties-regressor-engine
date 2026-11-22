@@ -19,7 +19,7 @@ Seluruh keluaran akademik proyek ini menggunakan satu sumber aset visual bersama
 | **Aplikasi Web Interaktif** | `.\aplikasi\run_app.bat` (`http://localhost:8501`) | Streamlit 4 tab: Kalkulator + What-If, Peta 978 Unit, Benchmark 3 Model, & SHAP |
 | **Jurnal Ilmiah (JTIP-UNP)** | [JURNAL_FINAL.docx](docs/jurnal/JURNAL_FINAL.docx) · [JURNAL_FINAL.pdf](docs/jurnal/JURNAL_FINAL.pdf) · [JURNAL_FINAL.md](docs/jurnal/JURNAL_FINAL.md) | Naskah utuh Bagian 1–4 + 23 rujukan IEEE (15 halaman, sesuai batas JTIP) |
 | **Laporan Tugas Besar** | [LAPORAN_FINAL.docx](docs/laporan/LAPORAN_FINAL.docx) · [LAPORAN_FINAL.pdf](docs/laporan/LAPORAN_FINAL.pdf) · [LAPORAN_FINAL.md](docs/laporan/LAPORAN_FINAL.md) | Laporan lengkap Bab I–V, 7 tabel, 11 gambar + tangkapan layar aplikasi, & 23 rujukan identik |
-| **Presentasi Hasil Akhir** | [PRESENTASI_FINAL.pptx](docs/presentasi/PRESENTASI_FINAL.pptx) · [PRESENTASI_FINAL.pdf](docs/presentasi/PRESENTASI_FINAL.pdf) · [PRESENTASI_FINAL.md](docs/presentasi/PRESENTASI_FINAL.md) | Dek presentasi 12 slide (16:9) berbasis *storytelling*, narasi lisan presenter lengkap, & font tersemat |
+| **Presentasi Hasil Akhir** | [PRESENTASI_FINAL.pptx](docs/presentasi/PRESENTASI_FINAL.pptx) · [PRESENTASI_FINAL.pdf](docs/presentasi/PRESENTASI_FINAL.pdf) · [PRESENTASI_FINAL.md](docs/presentasi/PRESENTASI_FINAL.md) | Dek presentasi 15 slide (16:9) visual bersih dengan alur kronologis, *Speaker Notes*, & font tersemat |
 | **Audit Rumus & 23 Rujukan** | [Peta Semua Rumus](docs/jurnal/peta_semua_rumus_jurnal.md) · [Audit Sitasi](docs/jurnal/audit_sitasi_dan_rujukan.md) · [PDF Berstabilo](docs/penelitian/rujukan_berstabilo/) | 23/23 PDF rujukan asli beserta 52 kutipan verbatim berstabilo |
 | **Aset Visual Bersama** | [Alur Penelitian](docs/assets/alur-penelitian.png) · [Validasi Model](docs/assets/arsitektur-validasi-model.png) · [Peta & Log](docs/assets/peta-distribusi-dan-log-harga.png) · [Evaluasi & Segmen](docs/assets/evaluasi-prediksi-dan-segmen.png) · [SHAP](docs/assets/interpretabilitas-shap.png) | Diagram, grafik 300 DPI, & tangkapan layar aplikasi dipakai bersama Jurnal, Laporan, dan Presentasi |
 | **Audit Kualitas Dataset** | [DATASET_VALIDATION_REPORT.md](aplikasi/data/processed/DATASET_VALIDATION_REPORT.md) | Audit kurasi 1.235 baris mentah &rarr; 978 unit bersih (54 kecamatan, 38 fitur) |
@@ -46,7 +46,7 @@ Seluruh keluaran akademik proyek ini menggunakan satu sumber aset visual bersama
 │   ├── jurnal/                # JURNAL_FINAL (.docx/.pdf/.md), template JTIP, peta rumus, & audit sitasi
 │   ├── laporan/               # LAPORAN_FINAL (.docx/.pdf/.md)
 │   ├── penelitian/            # 23 PDF rujukan asli (01..23) & 23 PDF berstabilo verbatim
-│   └── presentasi/            # PRESENTASI_FINAL (.pptx/.pdf/.md)
+│   └── presentasi/            # PRESENTASI_FINAL (.pptx/.pdf/.md — 15 slide)
 ├── .gitignore
 ├── LICENSE
 └── README.md
