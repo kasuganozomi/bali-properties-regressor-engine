@@ -1,7 +1,7 @@
 # Audit Keaslian Sitasi & Rujukan (23 Jurnal Terverifikasi)
 
-**Tanggal Audit Terakhir**: 2026-11-16 07:33  
-**Cakupan Naskah**: Bagian `1. INTRODUCTION`, `2. RESEARCH METHOD`, & `REFERENCES` (`[1]–[23]` kronologis) pada [`jurnal_bali_smart_pricing.docx`](jurnal_bali_smart_pricing.docx)  
+**Tanggal Audit Terakhir**: 2026-11-22 18:17  
+**Cakupan Naskah**: Seluruh naskah `1. INTRODUCTION`, `2. RESEARCH METHOD`, `3. RESULTS AND DISCUSSION`, & `REFERENCES` (`[1]–[23]` kronologis) pada [`JURNAL_FINAL.docx`](JURNAL_FINAL.docx) dan [`LAPORAN_FINAL.docx`](../laporan/LAPORAN_FINAL.docx)  
 **Kebijakan Verifikasi**: 100% kutipan dicocokkan *verbatim* menggunakan `PyMuPDF TEXT_DEHYPHENATE` pada halaman target **tanpa pemotongan kata (zero fallback)**. Seluruh 23 berkas PDF merupakan edisi resmi penerbit (*Version of Record*, bebas *watermark arXiv*).
 
 ### Legenda Warna Stabilo PDF

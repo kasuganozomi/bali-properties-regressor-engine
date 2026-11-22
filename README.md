@@ -1,5 +1,5 @@
 # Bali Smart Pricing Engine
-### Sistem Rekomendasi Tarif Sewa Harian Villa dan Homestay di Bali Berbasis Machine Learning & Explainable AI
+### Prediksi Tarif Sewa Harian Villa dan Homestay di Bali Menggunakan CatBoost, XGBoost, dan Explainable AI
 
 Disusun oleh:
 * **I Kadek Adi Sunetra** (NIM: 2305551053)
@@ -10,19 +10,19 @@ Dosen Pengampu: **Yogiswara Dharma Putra, S.TI., M.T.**
 
 ---
 
-## Navigasi Cepat Proyek
+## Navigasi Cepat Deliverables Final
 
-| Keperluan | Lokasi Berkas |
-|---|---|
-| **Menjalankan Aplikasi Web Streamlit** | `.\aplikasi\run_app.bat` (`http://localhost:8501`) |
-| **Naskah Jurnal Ilmiah (JTIP Section 1–2 + 23 Rujukan)** | [DOCX](docs/jurnal/jurnal_bali_smart_pricing.docx) · [PDF](docs/jurnal/jurnal_bali_smart_pricing.pdf) · [Template](docs/jurnal/template_jtip.docx) |
-| **Peta Lengkap Rumus & Audit Sitasi (23/23 PDF, 52 Kutipan)** | [Peta Semua Rumus](docs/jurnal/peta_semua_rumus_jurnal.md) · [Matriks Audit](docs/jurnal/audit_sitasi_dan_rujukan.md) · [PDF Berstabilo](docs/penelitian/rujukan_berstabilo/) |
-| **Panduan Pemahaman Sistem & Tanya Jawab** | [Quickstart](docs/panduan/quickstart.md) · [Bedah Model & Metrik](docs/panduan/bedah-model-dan-metrik.md) |
-| **Diagram Alur, Validasi Silang, & Peta Spasial** | [Alur Penelitian](docs/diagram/alur-penelitian.png) · [Validasi Model](docs/diagram/arsitektur-validasi-model.png) · [Peta Spasial & Log](docs/diagram/peta-distribusi-dan-log-harga.png) |
-| **Audit Validasi Kualitas Dataset (978 Unit)** | [DATASET_VALIDATION_REPORT.md](aplikasi/data/processed/DATASET_VALIDATION_REPORT.md) |
-| **Arsip Proposal Laporan & Presentasi Awal** | [Laporan](docs/laporan/laporan.md) · [Presentasi](docs/presentasi/naskah.md) |
+Seluruh keluaran akademik proyek ini menggunakan satu sumber aset visual bersama pada [`docs/assets/`](docs/assets/) dan satu daftar 23 rujukan IEEE terverifikasi verbatim (`[1]–[23]`) pada [`docs/penelitian/`](docs/penelitian/).
 
-> **Status Naskah Jurnal**: **Bagian 1 (`1. INTRODUCTION`)**, **Bagian 2 (`2. RESEARCH METHOD`)**, **`ABSTRACT`**, serta **`REFERENCES` (`[1]–[23]` terverifikasi kronologis dan teraudit verbatim)** telah selesai di [`docs/jurnal/jurnal_bali_smart_pricing.docx`](docs/jurnal/jurnal_bali_smart_pricing.docx), siap dilanjutkan ke Bagian 3 (*Results and Discussion*) dan Bagian 4 (*Conclusion*).
+| Deliverable | Berkas Final | Keterangan |
+|---|---|---|
+| **Aplikasi Web Interaktif** | `.\aplikasi\run_app.bat` (`http://localhost:8501`) | Streamlit 4 tab: Kalkulator + What-If, Peta 978 Unit, Benchmark 3 Model, & SHAP |
+| **Jurnal Ilmiah (JTIP-UNP)** | [JURNAL_FINAL.docx](docs/jurnal/JURNAL_FINAL.docx) · [JURNAL_FINAL.pdf](docs/jurnal/JURNAL_FINAL.pdf) · [JURNAL_FINAL.md](docs/jurnal/JURNAL_FINAL.md) | Naskah utuh Bagian 1–4 + 23 rujukan IEEE (15 halaman, sesuai batas JTIP) |
+| **Laporan Tugas Besar** | [LAPORAN_FINAL.docx](docs/laporan/LAPORAN_FINAL.docx) · [LAPORAN_FINAL.pdf](docs/laporan/LAPORAN_FINAL.pdf) · [LAPORAN_FINAL.md](docs/laporan/LAPORAN_FINAL.md) | Laporan lengkap Bab I–V, 7 tabel, 11 gambar + tangkapan layar aplikasi, & 23 rujukan identik |
+| **Presentasi Hasil Akhir** | [PRESENTASI_FINAL.pptx](docs/presentasi/PRESENTASI_FINAL.pptx) · [PRESENTASI_FINAL.pdf](docs/presentasi/PRESENTASI_FINAL.pdf) · [PRESENTASI_FINAL.md](docs/presentasi/PRESENTASI_FINAL.md) | Dek presentasi 12 slide (16:9) berbasis *storytelling*, narasi lisan presenter lengkap, & font tersemat |
+| **Audit Rumus & 23 Rujukan** | [Peta Semua Rumus](docs/jurnal/peta_semua_rumus_jurnal.md) · [Audit Sitasi](docs/jurnal/audit_sitasi_dan_rujukan.md) · [PDF Berstabilo](docs/penelitian/rujukan_berstabilo/) | 23/23 PDF rujukan asli beserta 52 kutipan verbatim berstabilo |
+| **Aset Visual Bersama** | [Alur Penelitian](docs/assets/alur-penelitian.png) · [Validasi Model](docs/assets/arsitektur-validasi-model.png) · [Peta & Log](docs/assets/peta-distribusi-dan-log-harga.png) · [Evaluasi & Segmen](docs/assets/evaluasi-prediksi-dan-segmen.png) · [SHAP](docs/assets/interpretabilitas-shap.png) | Diagram, grafik 300 DPI, & tangkapan layar aplikasi dipakai bersama Jurnal, Laporan, dan Presentasi |
+| **Audit Kualitas Dataset** | [DATASET_VALIDATION_REPORT.md](aplikasi/data/processed/DATASET_VALIDATION_REPORT.md) | Audit kurasi 1.235 baris mentah &rarr; 978 unit bersih (54 kecamatan, 38 fitur) |
 
 ---
 
@@ -35,19 +35,18 @@ Dosen Pengampu: **Yogiswara Dharma Putra, S.TI., M.T.**
 │   ├── run_app.bat            # Peluncur web dashboard (localhost:8501)
 │   ├── run_pipeline.bat       # Eksekutor pipeline 02 s.d. 06
 │   ├── data/
-│   │   ├── raw/               # Dataset awal (1.235 baris, 6 kolom)
+│   │   ├── raw/               # Dataset awal Kaggle (1.235 baris, 6 kolom)
 │   │   ├── scraped/           # Cache JSON per listing (1.036 berkas)
-│   │   └── processed/         # Master bersih (978 baris, 42 kolom) & split train/test
-│   ├── models/                # Model juara terlatih (CatBoost .cbm) & metadata fitur
+│   │   └── processed/         # Master bersih (978 baris, 42 kolom) & split 80:20
+│   ├── models/                # Model terbaik CatBoost (.cbm, 726 KiB) & metadata fitur
 │   ├── reports/               # CSV benchmark model, akurasi segmen, & grafik SHAP
 │   └── scripts/               # Pipeline 01 (scrape), 02 (merge), 03 (clean), 04 (train), 05 (SHAP), 06 (audit)
 ├── docs/
-│   ├── diagram/               # Bagan alur penelitian, arsitektur validasi, & peta spasial/log
-│   ├── jurnal/                # Naskah JTIP (.docx/.pdf), template, audit sitasi, & peta rumus
-│   ├── laporan/               # Arsip laporan tugas besar & aset tangkapan layar
-│   ├── panduan/               # Quickstart penguasaan & bedah matematis metrik
-│   ├── penelitian/            # 23 PDF rujukan asli (01..23) & PDF berstabilo verbatim
-│   └── presentasi/            # Arsip naskah slide & ekspor PPTX/PDF
+│   ├── assets/                # Sumber tunggal diagram, grafik 300 DPI, & tangkapan layar aplikasi
+│   ├── jurnal/                # JURNAL_FINAL (.docx/.pdf/.md), template JTIP, peta rumus, & audit sitasi
+│   ├── laporan/               # LAPORAN_FINAL (.docx/.pdf/.md)
+│   ├── penelitian/            # 23 PDF rujukan asli (01..23) & 23 PDF berstabilo verbatim
+│   └── presentasi/            # PRESENTASI_FINAL (.pptx/.pdf/.md)
 ├── .gitignore
 ├── LICENSE
 └── README.md
@@ -57,20 +56,21 @@ Dosen Pengampu: **Yogiswara Dharma Putra, S.TI., M.T.**
 
 ## Ringkasan Data & Benchmark Model (Terverifikasi)
 
-Pipeline memisahkan data uji secara terisolasi sebelum fitting (**0% Data Leakage**) dan menjaga nilai `rating` kosong alami pada unit baru (**cold-start**, ditandai `is_new_listing`) tanpa imputasi global sebelum split:
+Pipeline memisahkan data uji secara terpisah sejak awal sebelum pelatihan (**0% Data Leakage**) dan menjaga nilai `rating` kosong alami pada unit baru (**cold-start**, ditandai `is_new_listing = 1`) tanpa imputasi global sebelum split:
 
-* **Kurasi Data**: `1.235` baris mentah &rarr; `1.058` listing unik (`-177` duplikat `room_id`) &rarr; `1.036` unit berkoordinat GPS (`-22` tanpa lat/lon) &rarr; **`978` unit pasar reguler** (`-58` tarif ekstrem `< Rp 150 ribu`, `> Rp 10 juta`, atau `> Rp 4 juta/kamar`) di seluruh **`54` kecamatan resmi** dan **`9` kabupaten/kota Bali**, mencakup `402` koreksi batas kabupaten, `73` rekonsiliasi kapasitas kamar, dan `267` unit baru tanpa ulasan (`27,3%`, `rating = NaN`).
-* **Partisi Terisolasi (`80:20`)**: **`782` data latih** (5-Fold CV) dan **`196` data uji holdout**.
-* **Fitur Prediktor Murni**: **`38` fitur** (`35` fitur numerik/biner fisik, fasilitas, semantik judul, & jarak Haversine + `3` kategori nominal: `regency`, `sub_district`, `property_type`).
+* **Kurasi Data**: `1.235` baris mentah &rarr; `1.058` listing unik (`-177` duplikat `room_id`) &rarr; `1.036` unit berkoordinat GPS (`-22` tanpa lat/lon) &rarr; **`978` unit pasar reguler** (`-58` tarif ekstrem `< Rp 150 ribu`, `> Rp 10 juta`, atau `> Rp 4 juta/kamar`) pada **`54` kecamatan resmi** dan **`9` kabupaten/kota Bali**, mencakup `402` koreksi batas kabupaten (`SUBDISTRICT_MAP`), `73` rekonsiliasi kapasitas kamar, dan `267` unit baru tanpa ulasan (`27,3%`, `rating = NaN`).
+* **Pembagian Data (`80:20`)**: **`782` data latih** (5-Fold CV) dan **`196` data uji terpisah** (*holdout*).
+* **Fitur Prediktor Murni**: **`38` fitur** (`10` struktur & rasio kapasitas, `11` lokasi & 7 jarak Haversine, `8` fasilitas & skor kemewahan 0–5, `9` reputasi, operasi, & 4 sinyal teks).
 
-| Model | 5-Fold CV $R^2$ | Test $R^2$ | Test MAE (IDR) | Test MedAE (IDR) | Test RMSE (IDR) | Test MdAPE |
-|---| :---: | :---: | :---: | :---: | :---: | :---: |
-| **CatBoost Regressor (Champion)** | **0,6636** | **0,6708** | **Rp 764.207** | **Rp 391.492** | **Rp 1.231.953** | 30,09% |
-| **XGBoost Regressor** | 0,6631 | 0,6622 | Rp 773.730 | Rp 411.693 | Rp 1.249.748 | **27,61%** |
-| **Random Forest (Baseline)** | 0,6291 | 0,6560 | Rp 809.098 | Rp 470.400 | Rp 1.264.986 | 31,63% |
+| Model | 5-Fold CV $R^2$ | CV MAE (IDR) | Test $R^2$ (log) | Test MAE (IDR) | Test RMSE (IDR) | Test MedAE (IDR) | Test MdAPE |
+|---| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **CatBoost Regressor (Champion)** | **0,6636** | Rp 717.074 | **0,6708** | **Rp 764.207** | **Rp 1.231.953** | **Rp 391.492** | 30,09% |
+| **XGBoost Regressor** | 0,6631 | **Rp 714.995** | 0,6622 | Rp 773.730 | Rp 1.249.748 | Rp 411.693 | **27,61%** |
+| **Random Forest (Baseline)** | 0,6291 | Rp 737.098 | 0,6560 | Rp 809.098 | Rp 1.264.986 | Rp 470.400 | 31,63% |
 
-* **Segmen Terbesar (`Villa Reguler`, `89` dari `196` data uji)**: CatBoost mencapai **MedAE `Rp 306.870`** dengan **MdAPE `24,84%`** (akurasi relatif median **`75,16%`**).
-* **Explainable AI (XAI)**: Kontribusi fitur lokal & global dihitung menggunakan `SHAP TreeExplainer`.
+* **Segmen Terbesar (`Villa Reguler`, Rp 750 rb–2,5 jt, `n = 89` / `45,4%` data uji)**: CatBoost mencapai rata-rata prediksi `Rp 1.456.611` (aktual `Rp 1.467.322`), **MedAE `Rp 306.870`**, dan **MdAPE `24,84%`**.
+* **Ketahanan Cold-Start (`63` unit baru, `rating = NaN`, `review_count = 0`)**: CatBoost mencapai **MedAE `Rp 295.685`** dan **MdAPE `29,07%`** (sebanding dengan 133 unit berulasan: `MdAPE 30,10%`).
+* **Explainable AI (SHAP TreeExplainer)**: Pendorong tarif teratas adalah `property_type` (`0,183`), `bedrooms` (`0,134`), `has_bathtub` (`0,101`), `total_luxury_amenities` (`0,099`), `total_rooms_index` (`0,068`), dan `sub_district` (`0,067`).
 
 ---
 
